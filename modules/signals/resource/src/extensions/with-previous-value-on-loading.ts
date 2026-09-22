@@ -1,4 +1,4 @@
-import { Resource, untracked } from '@angular/core';
+import { Resource } from '@angular/core';
 import { LOADING_EXTENSION_TYPE } from '../consts';
 import { ResourceExtension } from '../models';
 
@@ -38,7 +38,7 @@ export function withPreviousValueOnLoading<
       Object.defineProperty(resource, 'value', {
         value: new Proxy(resource.value, {
           apply(target, thisArg, args) {
-            if (!untracked(resource.isLoading)) {
+            if (!resource.isLoading()) {
               value = Reflect.apply(target, thisArg, args);
             }
             return value;
